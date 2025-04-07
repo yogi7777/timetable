@@ -1,0 +1,193 @@
+:root {
+    --bg: #1a1a1a;
+    --text: #fff;
+    --button-bg: #333;
+    --button-active: #e74c3c;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+}
+
+.button {
+    background: var(--button-bg);
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.button.running {
+    background: var(--button-active);
+}
+
+.timer-display {
+    display: block;
+    font-size: 12px;
+    margin-top: 5px;
+}
+.export-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+form {
+    margin: 20px 0;
+}
+
+input, button {
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background: #333;
+    color: #fff;
+}
+
+button {
+    background: #3498db;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #2980b9;
+}
+
+a {
+    color: #3498db;
+    margin: 0 10px;
+}
+.dept-form {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.dept-form-delete {
+    background: #e74c3c;
+}
+
+.dept-form-delete:hover {
+    background: #c0392b;
+}
+.dept-form label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #fff;
+}
+
+.dept-form input[type="checkbox"] {
+    margin: 0;
+}
+nav {
+    margin: 20px 0;
+}
+
+nav a {
+    margin-right: 15px;
+    text-decoration: none;
+    color: #3498db;
+}
+
+nav a.active {
+    color: #e74c3c;
+    font-weight: bold;
+}
+.nav-bottom-position {
+    position: absolute;
+    bottom: 20px;
+}
+.nav-bottom {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px 10px;
+    background: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #444;
+}
+
+.dashboard-table th {
+    background: #2c2c2c;
+}
+
+@media (max-width: 600px) {
+    .dashboard-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .dashboard-table thead,
+    .dashboard-table tbody,
+    .dashboard-table tr {
+        display: block;
+    }
+
+    .dashboard-table th,
+    .dashboard-table td {
+        min-width: 120px;
+        display: inline-block;
+    }
+}
+.chart {
+    margin: 20px 0;
+}
+
+.bar-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.bar {
+    height: 20px;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Optional: Schatten für mehr Tiefe */
+}
+
+.bar-label {
+    flex: 1;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+}
+
+.bar-time {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    min-width: 80px;
+    text-align: right;
+}
