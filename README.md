@@ -22,10 +22,13 @@ Ich wies die AI an, keine Frameworks zu nutzen, damit das Projekt so schlank wie
 > Username: admin Password: admin
 
 Hauptseite
+
 ![image](https://github.com/user-attachments/assets/58954a72-6094-4d1b-9e6f-5273810bdc58)
 
 Dashboard
+
 ![image](https://github.com/user-attachments/assets/d439c425-88d8-47d9-8122-88e15a93587c)
 
 Admin Panel
+
 ![image](https://github.com/user-attachments/assets/4f7c725d-53a8-400a-8cfb-d2aae5d7962f)
