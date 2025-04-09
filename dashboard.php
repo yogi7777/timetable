@@ -96,6 +96,7 @@ function format_time($seconds) {
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - <?php echo htmlspecialchars($users[array_search($user_id, array_column($users, 'id'))]['username'] ?? 'User'); ?></title>
     <link rel="stylesheet" href="style.css">
 </head>

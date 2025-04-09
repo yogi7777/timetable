@@ -36,6 +36,7 @@ $active_timer_map = array_column($active_timers, 'start_ts', 'department_id');
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timer</title>
     <link rel="stylesheet" href="style.css">
 </head>

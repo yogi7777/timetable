@@ -10,23 +10,27 @@ body {
     color: var(--text);
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 10px; /* Reduziert für kleinere Bildschirme */
 }
 
+/* Container für bessere Skalierung */
 .container {
-    max-width: 800px;
+    max-width: 1200px; /* Erhöht für größere Bildschirme */
     margin: 0 auto;
+    padding: 0 10px;
 }
 
+/* Button Grid */
 .button-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Reduzierte Mindestbreite */
+    gap: 8px; /* Etwas kleinerer Abstand */
 }
 
+/* Buttons */
 .button {
     background: var(--button-bg);
-    padding: 15px;
+    padding: 10px; /* Reduziert für Mobile */
     text-align: center;
     border-radius: 8px;
     cursor: pointer;
@@ -39,29 +43,35 @@ body {
 
 .timer-display {
     display: block;
-    font-size: 12px;
+    font-size: clamp(10px, 2vw, 12px); /* Skalierbare Schriftgröße */
     margin-top: 5px;
 }
+
+/* Export Button */
 .export-btn {
     display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
+    margin: 15px 0;
+    padding: 8px 16px; /* Etwas kleiner */
     background: #3498db;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
 }
+
+/* Formulare */
 form {
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
-input, button {
-    padding: 10px;
-    margin: 5px;
+input, button, select {
+    padding: 8px; /* Reduziert für Mobile */
+    margin: 5px 0; /* Vertikale Ausrichtung */
     border: none;
     border-radius: 5px;
     background: #333;
     color: #fff;
+    width: 100%; /* Volle Breite auf Mobile */
+    box-sizing: border-box;
 }
 
 button {
@@ -75,12 +85,24 @@ button:hover {
 
 a {
     color: #3498db;
-    margin: 0 10px;
+    margin: 0 8px;
 }
+
+/* Department Form */
 .dept-form {
     display: flex;
-    gap: 10px;
+    flex-direction: column; /* Stapeln auf Mobile */
+    gap: 8px;
     margin: 10px 0;
+}
+
+@media (min-width: 600px) {
+    .dept-form {
+        flex-direction: row; /* Horizontal auf Desktop */
+    }
+    input, button, select {
+        width: auto; /* Normale Breite auf Desktop */
+    }
 }
 
 .dept-form-delete {
@@ -90,6 +112,7 @@ a {
 .dept-form-delete:hover {
     background: #c0392b;
 }
+
 .dept-form label {
     display: flex;
     align-items: center;
@@ -97,15 +120,16 @@ a {
     color: #fff;
 }
 
-.dept-form input[type="checkbox"] {
-    margin: 0;
-}
+/* Navigation */
 nav {
-    margin: 20px 0;
+    margin: 15px 0;
+    display: flex;
+    flex-wrap: wrap; /* Umbruch bei vielen Links */
+    gap: 10px;
 }
 
 nav a {
-    margin-right: 15px;
+    margin-right: 10px;
     text-decoration: none;
     color: #3498db;
 }
@@ -114,80 +138,87 @@ nav a.active {
     color: #e74c3c;
     font-weight: bold;
 }
+
 .nav-bottom-position {
-    position: absolute;
-    bottom: 20px;
+    position: static; /* Kein absolutes Positioning auf Mobile */
+    margin-top: 20px;
 }
+
 .nav-bottom {
     display: inline-block;
-    margin-top: 10px;
+    margin: 5px;
     padding: 5px 10px;
     background: #3498db;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
 }
-.dashboard-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-}
 
-.dashboard-table th,
-.dashboard-table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #444;
-}
-
-.dashboard-table th {
-    background: #2c2c2c;
-}
-
-@media (max-width: 600px) {
-    .dashboard-table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
-
-    .dashboard-table thead,
-    .dashboard-table tbody,
-    .dashboard-table tr {
-        display: block;
-    }
-
-    .dashboard-table th,
-    .dashboard-table td {
-        min-width: 120px;
-        display: inline-block;
-    }
-}
+/* Chart */
 .chart {
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
 .bar-container {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 10px 0;
+    flex-direction: column; /* Stapeln auf Mobile */
+    gap: 5px;
+    margin: 8px 0;
 }
 
 .bar {
     height: 20px;
     border-radius: 5px;
     transition: width 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Optional: Schatten für mehr Tiefe */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.bar-label {
-    flex: 1;
-    font-size: clamp(0.8rem, 2vw, 1rem);
+.bar-label, .bar-time {
+    font-size: clamp(0.75rem, 2.5vw, 1rem); /* Noch skalierbarer */
 }
 
-.bar-time {
-    font-size: clamp(0.8rem, 2vw, 1rem);
-    min-width: 80px;
-    text-align: right;
+/* Media Queries */
+@media (min-width: 600px) {
+    body {
+        padding: 20px;
+    }
+    
+    .button-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+    }
+    
+    .button {
+        padding: 15px;
+    }
+    
+    .bar-container {
+        flex-direction: row; /* Horizontal auf Desktop */
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .bar-label {
+        flex: 1;
+    }
+    
+    .bar-time {
+        min-width: 80px;
+        text-align: right;
+    }
+    
+    .nav-bottom-position {
+        position: absolute;
+        bottom: 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    h1 {
+        font-size: 1.5rem; /* Kleinere Überschrift */
+    }
+    
+    .button-grid {
+        grid-template-columns: 1fr; /* Einspaltig bei sehr kleinen Bildschirmen */
+    }
 }
