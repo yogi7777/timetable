@@ -7,6 +7,16 @@ CREATE TABLE users (
     PRIMARY KEY (id)
 );
 
+-- Tabelle für Tokens
+CREATE TABLE remember_tokens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    token_hash VARCHAR(255) NOT NULL,
+    expires_at DATETIME NOT NULL,
+    device_name VARCHAR(100) NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
 -- Tabelle für Abteilungen/Kostenstellen
 CREATE TABLE departments (
     id INT NOT NULL AUTO_INCREMENT,

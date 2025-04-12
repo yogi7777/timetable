@@ -1,9 +1,7 @@
 <?php
-session_start();
-if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
-    header("Location: index.php");
-    exit;
-}
+include 'db.php';
+require_once 'auth.php';
+checkAuth();
 
 include 'db.php';
 

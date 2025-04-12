@@ -1,9 +1,7 @@
 <?php
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
-}
+include 'db.php';
+require_once 'auth.php';
+checkAuth();
 
 include 'db.php';
 $user_id = $_SESSION['user_id'];

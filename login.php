@@ -15,6 +15,7 @@ ini_set('session.cookie_secure', 1);
 ini_set('session.use_strict_mode', 1);
 
 include 'db.php';
+require_once 'auth.php';
 
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -22,34 +23,21 @@ if (empty($_SESSION['csrf_token'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'] ?? '')) {
-        die("Ungültiges CSRF-Token");
-    }
-
-    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-    $password = $_POST['password'] ?? '';
-
-    if (empty($username) || empty($password)) {
-        $error = "Bitte alle Felder ausfüllen";
+        $error = "Ungültiges CSRF-Token";
     } else {
-        try {
-            $stmt = $db->prepare("SELECT id, password, is_admin FROM users WHERE username = ? LIMIT 1");
-            $stmt->execute([$username]);
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+        $password = $_POST['password'] ?? '';
+        $remember = isset($_POST['remember']);
+        $device_name = filter_input(INPUT_POST, 'device_name', FILTER_SANITIZE_STRING) ?? '';
 
-            if ($user && password_verify($password, $user['password'])) {
-                session_regenerate_id(true);
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['is_admin'] = (bool)$user['is_admin'];
-                $_SESSION['last_activity'] = time();
-                header("Location: index.php");
-                exit;
-            } else {
-                $error = "Falscher Benutzername oder Passwort";
-                sleep(1);
-            }
-        } catch (PDOException $e) {
-            error_log("Datenbankfehler: " . $e->getMessage());
-            $error = "Ein Fehler ist aufgetreten. Bitte später erneut versuchen.";
+        if (empty($username) || empty($password)) {
+            $error = "Bitte alle Felder ausfüllen";
+        } elseif (login($username, $password, $remember, $device_name)) {
+            header("Location: index.php");
+            exit;
+        } else {
+            $error = "Falscher Benutzername oder Passwort";
+            sleep(1); // Brute-Force-Schutz
         }
     }
 }
@@ -89,8 +77,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                    required
                    maxlength="100"
                    autocomplete="current-password">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                <label class="form-check-label" for="remember">Angemeldet bleiben</label>
+            </div>
+            <div class="form-group" id="device_name_group" style="display: none;">
+                <input type="text" 
+                       name="device_name" 
+                       id="device_name" 
+                       placeholder="Gerätename (z. B. Mein Laptop)" 
+                       maxlength="100"
+                       class="form-control">
+            </div>
             <button type="submit">Einloggen</button>
         </form>
     </div>
+    <script>
+        // Gerätename-Feld ein-/ausblenden
+        document.getElementById('remember').addEventListener('change', function() {
+            document.getElementById('device_name_group').style.display = this.checked ? 'block' : 'none';
+        });
+    </script>
 </body>
 </html>
